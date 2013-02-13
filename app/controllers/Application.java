@@ -32,8 +32,13 @@ public class Application extends Controller {
 		} catch (IOException e) {
 			return Results.notFound("json is not of format Task");
 		}
-		task.update();
-		return ok(play.libs.Json.toJson(task));
+		
+		Task dbTask = Task.find.byId(id);
+		if(dbTask!= null){
+			dbTask.fill(task);
+			dbTask.update();			
+		}
+		return ok(play.libs.Json.toJson(dbTask));
 	}
 
 	public static Result deleteTask (String id){

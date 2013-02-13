@@ -14,7 +14,7 @@ public class Task extends Model {
 
 	public String title;
 	
-	public boolean completed = false;
+	public Boolean completed;
 	
 	public Task (String title){
 		this.title = title;
@@ -26,11 +26,15 @@ public class Task extends Model {
     public static Finder<String,Task> find = new Finder<String,Task>(String.class, Task.class);
     
     public static Task create(Task task) {
-//    	Is this ok? Using a static method to persist then returning an object looks dicey
         task.save();
         return task;
     }
 
+    public Task fill(Task task){
+    	if(task.title!=null) this.title= task.title;
+    	if(task.completed!=null) this.completed = task.completed; 
+    	return this;
+    }
 	
     
 }
